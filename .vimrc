@@ -3,33 +3,60 @@ filetype on
 filetype plugin on
 filetype indent on
 
-set nocompatible
-set noautoindent
-set wildmenu wildmode=list:full
-set pastetoggle=<F11>
-set number
-set backspace=start,eol,indent
-set whichwrap=b,s,[,],,~
-set cursorline
-set ruler
+set nosmartindent "C言語向けのインデントを無効に
+set nocompatible "vi互換を無効にする
+set wildmenu wildmode=list:full "ファイル保管をオンにする
+set pastetoggle=<F11> "自動インデントを一時的に無効にする
+set number "行番号の表示を有効にする
+set backspace=start,eol,indent "インサートモード時にバックスペースを使う
+set cursorline "カーソル行の強調表示
+set ruler "エディタ右下にルーラーを表示
 set title "編集中のファイル名を表示
-set noswapfile
+set noswapfile "swpファイルを作成しない
+set nobackup "バックアップを作成しない
+set nowritebackup
+set ignorecase "大文字/小文字の区別なく検索する
+set smartcase "大文字で検索されたら対象を大文字限定にする
+set wrapscan "検索時に最後まで行ったら最初に戻る
+set incsearch "インクリメンタルサーチを行う
+set nowrap "行を折り返さない
+set clipboard=unnamed "クリップボードをWindowsと連携する
+set showmatch "閉括弧が入力された時、対応する括弧を強調する
+set formatoptions-=ro "継続行の自動コメントアウトを無効にする
+set tabstop=4 "<TAB>を含むファイルを開いた際、<TAB>を何文字の空白に変換するかを設定
+set softtabstop=4 "キーボードで<TAB>を入力した際、<TAB>を何文字の空白に変換するかを設定
+set shiftwidth=2 "vimが自動でインデントを行った際、設定する空白数
+set autoindent "自動インデントを無効に
+set expandtab "タブを空白に設定する
+set hlsearch "検索マッチテキストをハイライト
+set infercase "補完時に大文字小文字を区別しない
+"set list "不可視文字の可視化
+set textwidth=0 "自動的に改行が入るのを無効化
+set colorcolumn=80 "その代わり80文字目にラインを入れる
 
-" Ctrl+cにESCを割り当て
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
+
+"Ctrl+cにESCを割り当て
 inoremap <C-c> <Esc>
 
 "highlight Normal ctermbg=black ctermfg=grey
 "highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
 "highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
 
+"Vimを最強のPython開発環境にする2
+"http://lambdalisue.hatenablog.com/entry/2013/06/23/071344
+augroup MyAutoCmd
+    autocmd!
+augroup END
+
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
   "call neobundle#rc(expand('~/.vim/bundle'))
   call neobundle#begin(expand('~/.vim/bundle/'))
+    NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
     NeoBundle 'git://github.com/Shougo/clang_complete.git'
     NeoBundle 'git://github.com/Shougo/echodoc.git'
-    NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-    NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
+    "NeoBundle 'git://github.com/Shougo/neocomplcache.git'
     NeoBundle 'git://github.com/Shougo/unite.vim.git'
     NeoBundle 'git://github.com/Shougo/vim-vcs.git'
     NeoBundle 'git://github.com/Shougo/vimfiler.git'
@@ -59,31 +86,6 @@ if has("autocmd")
   augroup END
 endif
 
-
-"set tabstop=4 "インデントをスペース4つ分に設定
-"set shiftwidth=4 " タブを挿入するときの幅
-"set noexpandtab " タブをタブとして扱う(スペースに展開しない)
-"set softtabstop=0
-"set smartindent "オートインデント
-
-set ignorecase "大文字/小文字の区別なく検索する
-set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
-set wrapscan "検索時に最後まで行ったら最初に戻る
-
-""クリップボードをWindowsと連携する
-set clipboard=unnamed
-
-"インクリメンタルサーチを行う
-set incsearch
-
-"閉括弧が入力された時、対応する括弧を強調する
-set showmatch
-
-""新しい行を作った時に高度な自動インデントを行う
-set smarttab
-
-set formatoptions-=ro
-
 "保存時に自動でチェック
 let g:PyFlakeOnWrite = 1
 
@@ -101,20 +103,20 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 function! ToggleVExplorer()
-	if !exists("t:netrw_bufnr")
-		exec '1wincmd w'
-		20Vexplore
-		let t:netrw_bufnr = bufnr("%")
-		return
-	endif
-	let win = bufwinnr(t:netrw_bufnr)
-	if win != 1
-		let cur = winnr()
-		exe win . 'wincmd w'
-		close
-		exe cur . 'wincmd w'
-	endif
-	unlet t:netrw_bufnr
+    if !exists("t:netrw_bufnr")
+        exec '1wincmd w'
+        20Vexplore
+        let t:netrw_bufnr = bufnr("%")
+        return
+    endif
+    let win = bufwinnr(t:netrw_bufnr)
+    if win != 1
+        let cur = winnr()
+        exe win . 'wincmd w'
+        close
+        exe cur . 'wincmd w'
+    endif
+    unlet t:netrw_bufnr
 endfunction
 map <silent> <leader>e :call ToggleVExplorer()<cr><c-w>p
 
@@ -126,15 +128,15 @@ map <silent> <leader>E :TlistToggle<cr>
 
 "ctrlp
 function! CtrlP_OpenAtCenter(action, line)
-	let cw = bufwinnr('.')
-	for n in range(0, bufnr('$'))
-		let bw = bufwinnr(n)
-		if bw == cw && buflisted(n)
-			exe bw . 'wincmd w'
-			break
-		endif
-	endfor
-	call call('ctrlp#acceptfile', [a:action, a:line])
+    let cw = bufwinnr('.')
+    for n in range(0, bufnr('$'))
+        let bw = bufwinnr(n)
+        if bw == cw && buflisted(n)
+            exe bw . 'wincmd w'
+            break
+        endif
+    endfor
+    call call('ctrlp#acceptfile', [a:action, a:line])
 endfunction
 let g:ctrlp_open_func = {'files': 'CtrlP_OpenAtCenter'}
 
