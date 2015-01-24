@@ -1,0 +1,7 @@
+#hardstatus alwayslastline "[%w]"
+hardstatus alwayslastline '%{= kw}%02c:%s %{= .y}%H %L=%{= .b}%-w%46>%{= .r}%n %t*%{= .b}%+w%-16=%{= .y}[%l]'
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+escape ^\\
+
+scrollback 10000
+utf8 on
