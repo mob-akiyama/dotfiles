@@ -1,7 +1,5 @@
 syntax on "コードの色分け
 filetype on
-filetype plugin on
-filetype indent on
 
 set nosmartindent "C言語向けのインデントを無効に
 set nocompatible "vi互換を無効にする
@@ -49,30 +47,43 @@ augroup MyAutoCmd
     autocmd!
 augroup END
 
+let $PATH = "~/.pyenv/shims:".$PATH
+
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  "call neobundle#rc(expand('~/.vim/bundle'))
-  call neobundle#begin(expand('~/.vim/bundle/'))
-    NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-    NeoBundle 'git://github.com/Shougo/clang_complete.git'
-    NeoBundle 'git://github.com/Shougo/echodoc.git'
-    "NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-    NeoBundle 'git://github.com/Shougo/unite.vim.git'
-    NeoBundle 'git://github.com/Shougo/vim-vcs.git'
-    NeoBundle 'git://github.com/Shougo/vimfiler.git'
-    NeoBundle 'git://github.com/Shougo/vimshell.git'
-    NeoBundle 'git://github.com/Shougo/vinarise.git'
-    NeoBundle 'davidhalter/jedi-vim'
-    NeoBundle 'Flake8-vim'
-    NeoBundle 'hynek/vim-python-pep8-indent'
-    NeoBundle 'mrk21/yaml-vim'
-    "NeoBundlh 'chase/vim-ansible-yaml'
-    NeoBundle 'terryma/vim-multiple-cursors'
-    NeoBundle 'vim-scripts/taglist.vim'
-    NeoBundle 'ctrlpvim/ctrlp.vim'
-    NeoBundle 'thinca/vim-quickrun'
-  call neobundle#end()
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+    "call neobundle#rc(expand('~/.vim/bundle'))
+    call neobundle#begin(expand('~/.vim/bundle/'))
+        NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
+        NeoBundle 'git://github.com/Shougo/clang_complete.git'
+        NeoBundle 'git://github.com/Shougo/echodoc.git'
+        "NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+        "NeoBundle 'git://github.com/Shougo/unite.vim.git'
+        NeoBundle 'git://github.com/Shougo/vim-vcs.git'
+        NeoBundle 'git://github.com/Shougo/vimfiler.git'
+        NeoBundle 'git://github.com/Shougo/vimshell.git'
+        NeoBundle 'git://github.com/Shougo/vinarise.git'
+        "NeoBundle 'andviro/flake8-vim'
+        "NeoBundle 'scrooloose/syntastic'
+        NeoBundle 'davidhalter/jedi-vim'
+        NeoBundle 'nvie/vim-flake8'
+        NeoBundle 'hynek/vim-python-pep8-indent'
+        NeoBundle 'mrk21/yaml-vim'
+        "NeoBundlh 'chase/vim-ansible-yaml'
+        NeoBundle 'terryma/vim-multiple-cursors'
+        NeoBundle 'vim-scripts/taglist.vim'
+        NeoBundle 'ctrlpvim/ctrlp.vim'
+        NeoBundle 'thinca/vim-quickrun'
+        NeoBundle 'junegunn/seoul256.vim'
+        NeoBundle 'lambdalisue/vim-pyenv'
+    call neobundle#end()
 endif
+
+"NeoBundleLazy 'lambdalisue/vim-pyenv', {
+"    \ 'depends': ['davidhalter/jedi-vim'],
+"    \ 'autoload': {
+"    \     'filetypes': ['python', 'python3'],
+"    \ }
+"\ }
 
 if has("autocmd")
   augroup redhat
@@ -86,17 +97,12 @@ if has("autocmd")
   augroup END
 endif
 
-"保存時に自動でチェック
-let g:PyFlakeOnWrite = 1
-
-"解析種別を設定
-let g:PyFlakeCheckers = 'pep8,mccabe,pyflakes'
-
-"McCabe複雑度の最大値
-let g:PyFlakeDefaultComplexity=10
-
-"visualモードでQを押すと自動で修正
-let g:PyFlakeRangeCommand = 'Q'
+"let g:PyFlakeOnWrite = 1 "保存時に自動でチェック
+"let g:PyFlakeCheckers = 'pep8,mccabe,pyflakes' "解析種別を設定
+"let g:PyFlakeDefaultComplexity=10 "McCabe複雑度の最大値
+"let g:PyFlakeRangeCommand = 'Q' "visualモードでQを押すと自動で修正
+"let g:syntastic_python_checkers = ["flake8"]
+autocmd BufWritePost *.py call Flake8() "バッファー保存時にvim-flake8を実行する
 
 "netrw
 let g:netrw_liststyle = 3
@@ -141,3 +147,7 @@ endfunction
 let g:ctrlp_open_func = {'files': 'CtrlP_OpenAtCenter'}
 
 nnoremap <silent> r :QuickRun
+
+"colo seoul256
+filetype plugin on
+filetype indent on
