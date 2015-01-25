@@ -74,16 +74,16 @@ if has('vim_starting')
         NeoBundle 'ctrlpvim/ctrlp.vim'
         NeoBundle 'thinca/vim-quickrun'
         NeoBundle 'junegunn/seoul256.vim'
-        NeoBundle 'lambdalisue/vim-pyenv'
+        "NeoBundle 'lambdalisue/vim-pyenv'
     call neobundle#end()
 endif
 
-"NeoBundleLazy 'lambdalisue/vim-pyenv', {
-"    \ 'depends': ['davidhalter/jedi-vim'],
-"    \ 'autoload': {
-"    \     'filetypes': ['python', 'python3'],
-"    \ }
-"\ }
+NeoBundleLazy 'lambdalisue/vim-pyenv', {
+    \ 'depends': ['davidhalter/jedi-vim'],
+    \ 'autoload': {
+    \     'filetypes': ['python', 'python3'],
+    \ }
+\ }
 
 if has("autocmd")
   augroup redhat
