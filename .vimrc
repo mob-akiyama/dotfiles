@@ -57,7 +57,7 @@ if has('vim_starting')
         NeoBundle 'git://github.com/Shougo/clang_complete.git'
         NeoBundle 'git://github.com/Shougo/echodoc.git'
         "NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-        "NeoBundle 'git://github.com/Shougo/unite.vim.git'
+        NeoBundle 'git://github.com/Shougo/unite.vim.git'
         NeoBundle 'git://github.com/Shougo/vim-vcs.git'
         NeoBundle 'git://github.com/Shougo/vimfiler.git'
         NeoBundle 'git://github.com/Shougo/vimshell.git'
@@ -74,7 +74,6 @@ if has('vim_starting')
         NeoBundle 'ctrlpvim/ctrlp.vim'
         NeoBundle 'thinca/vim-quickrun'
         NeoBundle 'junegunn/seoul256.vim'
-        "NeoBundle 'lambdalisue/vim-pyenv'
     call neobundle#end()
 endif
 
@@ -146,7 +145,10 @@ function! CtrlP_OpenAtCenter(action, line)
 endfunction
 let g:ctrlp_open_func = {'files': 'CtrlP_OpenAtCenter'}
 
+"quickrun
+let g:quickrun_config = {'*': {'split': '10'}}
 nnoremap <silent> r :QuickRun
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 "colo seoul256
 filetype plugin on
