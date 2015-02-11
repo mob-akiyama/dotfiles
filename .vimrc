@@ -31,6 +31,8 @@ set infercase "補完時に大文字小文字を区別しない
 "set list "不可視文字の可視化
 set textwidth=0 "自動的に改行が入るのを無効化
 set colorcolumn=80 "その代わり80文字目にラインを入れる
+set mouse=n
+set ttymouse=xterm2
 
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 
@@ -57,7 +59,7 @@ if has('vim_starting')
         NeoBundle 'git://github.com/Shougo/clang_complete.git'
         NeoBundle 'git://github.com/Shougo/echodoc.git'
         "NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-        NeoBundle 'git://github.com/Shougo/unite.vim.git'
+        "NeoBundle 'git://github.com/Shougo/unite.vim.git'
         NeoBundle 'git://github.com/Shougo/vim-vcs.git'
         NeoBundle 'git://github.com/Shougo/vimfiler.git'
         NeoBundle 'git://github.com/Shougo/vimshell.git'
@@ -74,6 +76,7 @@ if has('vim_starting')
         NeoBundle 'ctrlpvim/ctrlp.vim'
         NeoBundle 'thinca/vim-quickrun'
         NeoBundle 'junegunn/seoul256.vim'
+        "NeoBundle 'lambdalisue/vim-pyenv'
     call neobundle#end()
 endif
 
@@ -145,10 +148,7 @@ function! CtrlP_OpenAtCenter(action, line)
 endfunction
 let g:ctrlp_open_func = {'files': 'CtrlP_OpenAtCenter'}
 
-"quickrun
-let g:quickrun_config = {'*': {'split': '10'}}
 nnoremap <silent> r :QuickRun
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 "colo seoul256
 filetype plugin on
