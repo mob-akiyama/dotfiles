@@ -77,6 +77,7 @@ if has('vim_starting')
         NeoBundle 'thinca/vim-quickrun'
         NeoBundle 'junegunn/seoul256.vim'
         "NeoBundle 'lambdalisue/vim-pyenv'
+        NeoBundle 'fatih/vim-go'
     call neobundle#end()
 endif
 
@@ -149,6 +150,21 @@ endfunction
 let g:ctrlp_open_func = {'files': 'CtrlP_OpenAtCenter'}
 
 nnoremap <silent> r :QuickRun
+
+"golang
+let g:go_bin_path = expand("~/.go/bin")
+set rtp+=$GOROOT/misc/vim
+exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim”)
+
+exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+set completeopt=menu,preview
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
 
 "colo seoul256
 filetype plugin on
