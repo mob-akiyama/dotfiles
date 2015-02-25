@@ -58,7 +58,7 @@ if has('vim_starting')
         NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
         NeoBundle 'git://github.com/Shougo/clang_complete.git'
         NeoBundle 'git://github.com/Shougo/echodoc.git'
-        "NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+        NeoBundle 'git://github.com/Shougo/neocomplcache.git'
         "NeoBundle 'git://github.com/Shougo/unite.vim.git'
         NeoBundle 'git://github.com/Shougo/vim-vcs.git'
         NeoBundle 'git://github.com/Shougo/vimfiler.git'
@@ -152,11 +152,27 @@ let g:ctrlp_open_func = {'files': 'CtrlP_OpenAtCenter'}
 nnoremap <silent> r :QuickRun
 
 "golang
-let g:go_bin_path = expand("~/.go/bin")
-set rtp+=$GOROOT/misc/vim
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim”)
+if !exists('g:neocomplete#omni_patterns')
+    let g:neocomplete#omni_patterns = {}
+endif
 
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+"let g:neocomplete#omni_patterns.go = '\h\w*\.\?'
+
+"let g:quickrun_config['go'] = {
+"          \ 'command': 'go',
+"          \ 'exec': ['%c run %s']
+"          \ }
+
+""" vim-go
+let g:go_play_open_browser = 0
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_autosave = 0
+let g:go_fmt_command = "gofmt"
+let g:go_disable_autoinstall = 1
+
+let g:go_bin_path = expand("~/.go/bin")
+"exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim”)
+set rtp+=$GOROOT/misc/vim
 set completeopt=menu,preview
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
