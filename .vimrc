@@ -154,7 +154,6 @@ nnoremap <silent> r :QuickRun
 "golang
 let g:go_bin_path = expand("~/.go/bin")
 set rtp+=$GOROOT/misc/vim
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim”)
 
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 set completeopt=menu,preview
