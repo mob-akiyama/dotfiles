@@ -53,31 +53,26 @@ let $PATH = "~/.pyenv/shims:".$PATH
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
-    "call neobundle#rc(expand('~/.vim/bundle'))
     call neobundle#begin(expand('~/.vim/bundle/'))
         NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
         NeoBundle 'git://github.com/Shougo/clang_complete.git'
         NeoBundle 'git://github.com/Shougo/echodoc.git'
-        "NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-        "NeoBundle 'git://github.com/Shougo/unite.vim.git'
+        NeoBundle 'git://github.com/Shougo/unite.vim.git'
         NeoBundle 'git://github.com/Shougo/vim-vcs.git'
         NeoBundle 'git://github.com/Shougo/vimfiler.git'
         NeoBundle 'git://github.com/Shougo/vimshell.git'
         NeoBundle 'git://github.com/Shougo/vinarise.git'
-        "NeoBundle 'andviro/flake8-vim'
-        "NeoBundle 'scrooloose/syntastic'
         NeoBundle 'davidhalter/jedi-vim'
         NeoBundle 'nvie/vim-flake8'
         NeoBundle 'hynek/vim-python-pep8-indent'
         NeoBundle 'mrk21/yaml-vim'
-        "NeoBundlh 'chase/vim-ansible-yaml'
+        NeoBundle 'chase/vim-ansible-yaml'
         NeoBundle 'terryma/vim-multiple-cursors'
         NeoBundle 'vim-scripts/taglist.vim'
         NeoBundle 'ctrlpvim/ctrlp.vim'
         NeoBundle 'thinca/vim-quickrun'
         NeoBundle 'junegunn/seoul256.vim'
-        "NeoBundle 'lambdalisue/vim-pyenv'
-        NeoBundle 'fatih/vim-go'
+        NeoBundle 'Blackrush/vim-gocode'
     call neobundle#end()
 endif
 
@@ -149,21 +144,23 @@ function! CtrlP_OpenAtCenter(action, line)
 endfunction
 let g:ctrlp_open_func = {'files': 'CtrlP_OpenAtCenter'}
 
+"quickrun
+let g:quickrun_config = {'*': {'split': '10'}}
 nnoremap <silent> r :QuickRun
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 "golang
-let g:go_bin_path = expand("~/.go/bin")
-set rtp+=$GOROOT/misc/vim
-
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-set completeopt=menu,preview
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
+"let g:go_bin_path = expand("~/.go/bin")
+"set rtp+=$GOROOT/misc/vim
+"exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+"set completeopt=menu,preview
+"au FileType go nmap <Leader>i <Plug>(go-info)
+"au FileType go nmap <Leader>gd <Plug>(go-doc)
+"au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+"au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+"au FileType go nmap <leader>r <Plug>(go-run)
+"au FileType go nmap <leader>b <Plug>(go-build)
+"au FileType go nmap <leader>t <Plug>(go-test)
 
 "colo seoul256
 filetype plugin on
