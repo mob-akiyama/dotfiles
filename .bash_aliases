@@ -59,8 +59,8 @@ custom_cd() {
       done
       dirhist=("${newhist[@]}")
     fi
-
-    dirhist+=("$1")
+    local abs_path=`builtin cd $1; pwd`
+    dirhist+=($abs_path)
   fi
 
   cd $1
