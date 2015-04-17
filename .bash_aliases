@@ -24,7 +24,6 @@ stty erase ^?
 # disable Ctrl + s
 stty stop undef
 
-#alias vim=/usr/local/vim74/bin/vim
 alias head5='head -50'
 alias tail5='tail -50'
 alias python2='python2 -B'
@@ -87,9 +86,11 @@ cdm() {
 
 alias cd='custom_cd'
 
-for f in ~/.bash_aliases.d/*; do
+if [ -d "~/.bash_aliases.d" ]; then
+  for f in ~/.bash_aliases.d/*; do
     . $f
-done
+  done
+fi
 
 # enable history
 set -o history
