@@ -59,8 +59,14 @@ custom_cd() {
       done
       dirhist=("${newhist[@]}")
     fi
-    local abs_path=`builtin cd $1; pwd`
-    dirhist+=($abs_path)
+
+    if [ -e $1 ]; then
+      local abs_path=`builtin cd $1; pwd`
+      dirhist+=($abs_path)
+    else
+      echo "$1: No such file or directory" >&2
+      return 1
+    fi
   fi
 
   cd $1
@@ -79,7 +85,8 @@ cdm() {
     if [ -n "$to" ]; then
       cd ${dirhist[$1]}
     else
-      echo $1 not memoried
+      echo not memoried index >&2
+      return 1
     fi
   fi
 }
