@@ -86,7 +86,7 @@ cdm() {
 
 alias cd='custom_cd'
 
-if [ -d "~/.bash_aliases.d" ]; then
+if [ -d ~/.bash_aliases.d ]; then
   for f in ~/.bash_aliases.d/*; do
     . $f
   done
