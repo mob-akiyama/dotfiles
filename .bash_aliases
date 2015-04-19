@@ -17,7 +17,7 @@ START_COLOR="\[\e[${RED}m\]"
 END_COLOR="\[\e[0m\]"
 PYTHONDONTWRITEBYTECODE=1
 GIT_PS1_SHOWDIRTYSTATE=true
-PS1="\`if [ \$? = 0 ]; then echo \[\e[33m\]'\'\(^_^\)/\[\e[0m\]; else echo \[\e[31m\]/\(^o^\)'\'\[\e[0m\]; fi\`:\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]\$(__git_ps1)\[\033[00m\]\\$ "
+PS1="\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]\$(__git_ps1)\[\033[00m\]\\$ "
 
 # for mac
 stty erase ^?
@@ -53,7 +53,7 @@ dirhistmax=40
 custom_cd() {
   if  [ -n "$1" ]; then
     if [ ${#dirhist[*]} -ge $dirhistmax ]; then
-      newhist=()
+      local newhist=()
       for ((i=1; i<=$dirhistmax; i++)); do
         newhist+=("${dirhist[$i]}")
       done
@@ -81,8 +81,7 @@ cdm() {
     local prev_index=$((${#dirhist[*]}-2))
     cd ${dirhist[$prev_index]}
   else
-    to="${dirhist[$1]}"
-    if [ -n "$to" ]; then
+    if [ -n "${dirhist[$1]}" ]; then
       cd ${dirhist[$1]}
     else
       echo not memoried index >&2
