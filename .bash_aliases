@@ -26,9 +26,6 @@ stty stop undef
 
 alias head5='head -50'
 alias tail5='tail -50'
-alias python2='python2 -B'
-alias python3='python3 -B'
-alias python="python -B"
 alias jq='jq -C'
 alias lv='lv -c'
 
