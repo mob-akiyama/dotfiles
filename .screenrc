@@ -6,7 +6,7 @@ defutf8 on
 defencoding utf8
 encoding utf-8 utf-8
 
-backtick 1 0 0 $HOME/pyenv/python3/slack/main.py
+backtick 1 0 0 $HOME/pyenv/python3/slack/watch_unread.py
 caption always "%1`"
 
 hardstatus alwayslastline '%{= .y}%H %L=%{= .b}%-w%46>%{= .r}%n %t*%{= .b}%+w%-16=%{= .y}[%l]'
