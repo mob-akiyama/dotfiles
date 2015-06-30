@@ -8,6 +8,7 @@ export EDITOR=/usr/bin/vim
 export PAGER='/usr/bin/lv -c'
 export PYTHONUNBUFFERED=1
 export PYTHONDONTWRITEBYTECODE=1
+export ANSIBLE_FORCE_COLOR=True
 
 HISTSIZE=100000
 HISTTIMEFORMAT='%Y-%m-%d %T : '
