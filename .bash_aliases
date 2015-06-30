@@ -6,16 +6,16 @@ set +o history
 export PATH=$PATH:$HOME/bin
 export EDITOR=/usr/bin/vim
 export PAGER='/usr/bin/lv -c'
+export PYTHONUNBUFFERED=1
+export PYTHONDONTWRITEBYTECODE=1
 
 HISTSIZE=100000
 HISTTIMEFORMAT='%Y-%m-%d %T : '
-HISTIGNORE="fg*:bg*:history*"
 HISTCONTROL=ignoreboth
 
 RED="0;31"
 START_COLOR="\[\e[${RED}m\]"
 END_COLOR="\[\e[0m\]"
-PYTHONDONTWRITEBYTECODE=1
 GIT_PS1_SHOWDIRTYSTATE=true
 PS1="\`if [ \$? = 0 ]; then echo \[\e[33m\]'\'\(^_^\)/\[\e[0m\]; else echo \[\e[31m\]/\(^o^\)'\'\[\e[0m\]; fi\`:\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]\$(__git_ps1)\[\033[00m\]\\$ "
 
@@ -29,7 +29,7 @@ alias tail5='tail -50'
 alias jq='jq -C'
 alias lv='lv -c'
 
-for project in next drz quu mpz cmn dsh bill nxt jpr kdz kpr kmp; do
+for project in next drz quu mpz cmn dsh bill nxt jpr kdz kpr kmp cpo; do
   alias aws_${project}="aws --profile ${project}"
   alias aws_ec2_${project}="aws --profile ${project} ec2 describe-instances | jq '.Reservations[].Instances[] | {name: .Tags[].Value, type: .InstanceType, public_ip: .PublicIpAddress}'"
   alias aws_rds_${project}="aws --profile ${project} rds describe-db-instances | jq '.DBInstances[] | {name: .DBInstanceIdentifier, type: .DBInstanceClass, storage: .AllocatedStorage, storagetype: .StorageType}'"
